@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://c84oipxm1qxpr"]
+
+[ext_resource type="PackedScene" uid="uid://iulg6em4uo2s" path="res://Scenes/castle_wall.tscn" id="1_eqmrl"]
+[ext_resource type="Script" uid="uid://6wf3a23axlve" path="res://Scripts/wave_scene.gd" id="1_m0t5m"]
+[ext_resource type="Script" uid="uid://bi2a5x2u550fu" path="res://Scripts/enemy_spawner.gd" id="1_xlwtx"]
+[ext_resource type="PackedScene" uid="uid://crxr0gywo2ovm" path="res://Scenes/player.tscn" id="2_ar4ic"]
+
+[node name="WaveScene" type="Node"]
+script = ExtResource("1_m0t5m")
+
+[node name="EnemySpawner" type="Node" parent="."]
+script = ExtResource("1_xlwtx")
+
+[node name="CastleWall" parent="." instance=ExtResource("1_eqmrl")]
+position = Vector2(960, 1033)
+
+[node name="Player" parent="." instance=ExtResource("2_ar4ic")]
+position = Vector2(960, 1006)
+
+[node name="RoundTimer" type="Timer" parent="."]
+
+[node name="RoundTimerLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -65.5
+offset_top = 20.0
+offset_right = 65.5
+offset_bottom = 96.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 51
+text = "00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="timeout" from="RoundTimer" to="." method="_on_round_timer_timeout"]

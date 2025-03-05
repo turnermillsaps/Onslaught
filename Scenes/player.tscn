@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://crxr0gywo2ovm"]
+
+[ext_resource type="Texture2D" uid="uid://dr6eliou0ov26" path="res://Sprites/Triangle-0002.png" id="1_2gyev"]
+[ext_resource type="Script" uid="uid://r0g5sogy3svi" path="res://Scripts/player.gd" id="1_olqph"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kwk70"]
+radius = 20.0
+height = 40.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_olqph")
+
+[node name="Triangle-0002" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(1.90625, 1.78125)
+texture = ExtResource("1_2gyev")
+offset = Vector2(0, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(7, -2)
+shape = SubResource("CapsuleShape2D_kwk70")

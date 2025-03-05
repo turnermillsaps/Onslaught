@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://iulg6em4uo2s"]
+
+[ext_resource type="Script" uid="uid://cfc85xif47s2k" path="res://Scripts/castle_wall.gd" id="1_u0m80"]
+[ext_resource type="Texture2D" uid="uid://q7vma01vd75x" path="res://Sprites/Square-0001.png" id="1_xjpcx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_705c0"]
+size = Vector2(31.95, 30.2901)
+
+[node name="CastleWall" type="Area2D"]
+collision_mask = 0
+script = ExtResource("1_u0m80")
+
+[node name="Placeholder" type="Sprite2D" parent="."]
+scale = Vector2(60, 4.09375)
+texture = ExtResource("1_xjpcx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.500046, 1)
+scale = Vector2(60, 4.09375)
+shape = SubResource("RectangleShape2D_705c0")

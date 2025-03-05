@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsygpt8aayy4i"]
+
+[ext_resource type="Texture2D" uid="uid://ckh3q8fsbc541" path="res://Sprites/Bow and Arrows.png" id="1_6bb5e"]
+[ext_resource type="Script" uid="uid://bnfidc5f5nvo8" path="res://Scripts/arrow.gd" id="1_t38hd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_urn3x"]
+size = Vector2(15, 27.5)
+
+[node name="Arrow" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_t38hd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -21.75)
+shape = SubResource("RectangleShape2D_urn3x")
+
+[node name="BowAndArrows" type="Sprite2D" parent="."]
+rotation = -1.5708
+scale = Vector2(3.9326, 2.02976)
+texture = ExtResource("1_6bb5e")
+region_enabled = true
+region_rect = Rect2(31, 4, 17, 7)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
