@@ -3,6 +3,7 @@ extends Node
 #region Onready Variables
 @onready var round_timer = $RoundTimer
 @onready var round_timer_label = $RoundTimerLabel
+@onready var castle_wall = $CastleWall
 #endregion
 
 
@@ -51,6 +52,11 @@ func _start_round_timer() -> void:
 # Updates the round timer Label
 func _update_round_timer_label(time: String) -> void:
 	round_timer_label.text = time
+	
+	
+# Connect to the castle wall's health_depleted signal event
+func _connect_to_wall_death_signal() -> void:
+	castle_wall.connect("health_depleted", _on_wall_health_depleted)
 #endregion
 
 
@@ -59,4 +65,9 @@ func _update_round_timer_label(time: String) -> void:
 func _on_round_timer_timeout() -> void:
 	round_duration -= 1
 	_update_round_timer_label(str(round_duration))
+	
+	
+# Handler for the castle wall's health depleted event
+func _on_wall_health_depleted() -> void:
+	pass
 #endregion

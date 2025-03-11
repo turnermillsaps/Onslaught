@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://ikwccr11d863"]
+[gd_scene load_steps=6 format=3 uid="uid://ikwccr11d863"]
 
 [ext_resource type="Script" uid="uid://blxt5fbna68u7" path="res://Scripts/enemy.gd" id="1_5npto"]
 [ext_resource type="Texture2D" uid="uid://cq636xokjhqve" path="res://Sprites/tile_0109.png" id="1_7s4o6"]
+[ext_resource type="Script" uid="uid://cwhmdowgtr53w" path="res://Scripts/hitbox.gd" id="3_afpow"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wtcqd"]
 size = Vector2(58, 63)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_afpow"]
+radius = 18.1108
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 2
@@ -21,3 +25,20 @@ shape = SubResource("RectangleShape2D_wtcqd")
 [node name="WallDetector" type="RayCast2D" parent="."]
 target_position = Vector2(0, 81)
 collide_with_areas = true
+
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+script = ExtResource("3_afpow")
+metadata/_custom_type_script = "uid://cwhmdowgtr53w"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-16, 64)
+shape = SubResource("CircleShape2D_afpow")
+disabled = true
+debug_color = Color(0.90514, 0, 0.298132, 0.42)
+
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]
