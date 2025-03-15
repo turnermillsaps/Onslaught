@@ -9,13 +9,8 @@ extends Area2D
 
 #region Construction
 # Sets the damage property
-func _set_damage(dmg: float) -> void:
+func set_damage(dmg: float) -> void:
 	damage = dmg
-	
-	
-# Gets the damage property
-func _get_damage() -> float:
-	return damage
 #endregion
 
 

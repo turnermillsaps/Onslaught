@@ -3,7 +3,6 @@ extends Node
 #region On Ready Variables
 @onready var main: Node = $"/root/Main"
 @onready var main_menu: Control = $"/root/Main/MainMenu"
-
 #endregion
 
 
@@ -22,12 +21,22 @@ func start_game() -> void:
 	current_scene = wave_scene
 	
 
+# Return to main menu from pause/game over
+func return_to_main() -> void:
+	current_scene.queue_free()
+	main.add_child(main_menu)
+	if get_tree().paused:
+		get_tree().paused = false
+	current_scene = main_menu
+	
+	
 # Pause game
 func pause_game() -> void:
-	pass
+	get_tree().paused = true
 	
 
 # Unpause game
 func unpause_game() -> void:
 	pass
+	
 #endregion

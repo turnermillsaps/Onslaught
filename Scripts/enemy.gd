@@ -4,13 +4,15 @@ extends CharacterBody2D
 @export var speed: float = 10000.0
 @export var health: float = 10.0
 @export var attack_speed: float = 1.0
+@export var damage: float = 100.0
 var is_attacking: bool = false
 #endregion
 
 
 #region OnReady Variables
 @onready var wall_detector: RayCast2D = $WallDetector
-@onready var hit_box: CollisionShape2D = $HitBox/CollisionShape2D
+@onready var hit_box_shape: CollisionShape2D = $HitBox/CollisionShape2D
+@onready var hit_box: Area2D = $HitBox
 @onready var attack_timer: Timer = $AttackCooldown
 #endregion
 
@@ -19,6 +21,7 @@ var is_attacking: bool = false
 # On ready 
 func _ready() -> void:
 	position = Vector2(randf_range(0, 1080), -30)
+	hit_box.set_damage(damage)
 	
 	
 # Execute every frame
@@ -37,9 +40,9 @@ func _physics_process(delta: float) -> void:
 		
 # Enable hit box and play animation
 func _attack() -> void:
-	hit_box.disabled = false
+	hit_box_shape.disabled = false
 	await get_tree().create_timer(0.2).timeout
-	hit_box.disabled = true
+	hit_box_shape.disabled = true
 #endregion
 
 

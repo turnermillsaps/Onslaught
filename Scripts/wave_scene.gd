@@ -4,6 +4,7 @@ extends Node
 @onready var round_timer = $RoundTimer
 @onready var round_timer_label = $RoundTimerLabel
 @onready var castle_wall = $CastleWall
+@onready var game_over_gui = $GameOver
 #endregion
 
 
@@ -26,6 +27,7 @@ func set_rount_timer_wait_time(duration: int) -> void:
 
 #region Private
 func _ready() -> void:
+	_connect_to_wall_death_signal()
 	_spawn_enemys()
 	_update_round_timer_label(str(round_duration))
 	_start_round_timer()
@@ -33,7 +35,7 @@ func _ready() -> void:
 
 # Spawns enemies at random intervals between min and max frequency
 func _spawn_enemys() -> void:
-	while !game_over or !round_over:
+	while !game_over and !round_over:
 		var new_enemy = ENEMY.instantiate()
 		await get_tree().create_timer(
 			randf_range(min_spawn_frequency, max_spawn_frequency)
@@ -69,5 +71,9 @@ func _on_round_timer_timeout() -> void:
 	
 # Handler for the castle wall's health depleted event
 func _on_wall_health_depleted() -> void:
-	pass
+	game_over = true
+	get_tree().paused = true
+	game_over_gui.show()
+	# TODO: For each enemy in the scene, stop them and eventually create an
+	# 	animation for them to do
 #endregion
