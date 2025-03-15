@@ -15,7 +15,6 @@ var alive = true
 func take_damage(dmg: float) -> void:
 	if alive: # Only take damage if the wall is still up, otherwise ignore any subsequent hit
 		health -= dmg
-		print("Wall taking damage")
 		if health <= 0:
 			health_depleted.emit()
 			alive = false

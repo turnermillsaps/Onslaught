@@ -30,6 +30,11 @@ func return_to_main() -> void:
 	current_scene = main_menu
 	
 	
+# Pulls up item selection screen in between rounds
+func go_to_item_selection() -> void:
+	pause_game()
+	
+	
 # Pause game
 func pause_game() -> void:
 	get_tree().paused = true

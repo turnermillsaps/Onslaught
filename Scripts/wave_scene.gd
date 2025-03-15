@@ -59,6 +59,11 @@ func _update_round_timer_label(time: String) -> void:
 # Connect to the castle wall's health_depleted signal event
 func _connect_to_wall_death_signal() -> void:
 	castle_wall.connect("health_depleted", _on_wall_health_depleted)
+	
+	
+# Ends the current round and calls scene manager to pull up item selection screen
+func _end_round() -> void:
+	SceneManager.call_deferred("go_to_item_selection")
 #endregion
 
 
@@ -66,7 +71,10 @@ func _connect_to_wall_death_signal() -> void:
 # Handler for round timer timeout event
 func _on_round_timer_timeout() -> void:
 	round_duration -= 1
-	_update_round_timer_label(str(round_duration))
+	if round_duration <= 0:
+		_end_round()
+	else:
+		_update_round_timer_label(str(round_duration))
 	
 	
 # Handler for the castle wall's health depleted event

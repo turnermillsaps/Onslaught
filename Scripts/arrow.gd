@@ -1,8 +1,8 @@
 extends Area2D
 
 #region Member Variables
-var speed: float = 300.0
-var damage: float = 12.0
+@export var speed: float = 1000.0
+@export var damage: float = 12.0
 #endregion
 
 

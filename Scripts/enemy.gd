@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var speed: float = 10000.0
 @export var health: float = 10.0
 @export var attack_speed: float = 1.0
-@export var damage: float = 100.0
+@export var damage: float = 1.0
 var is_attacking: bool = false
 #endregion
 
