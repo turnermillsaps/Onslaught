@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c84oipxm1qxpr"]
+[gd_scene load_steps=7 format=3 uid="uid://c84oipxm1qxpr"]
 
 [ext_resource type="PackedScene" uid="uid://iulg6em4uo2s" path="res://Scenes/castle_wall.tscn" id="1_eqmrl"]
 [ext_resource type="Script" uid="uid://6wf3a23axlve" path="res://Scripts/wave_scene.gd" id="1_m0t5m"]
 [ext_resource type="Script" uid="uid://bi2a5x2u550fu" path="res://Scripts/enemy_spawner.gd" id="1_xlwtx"]
 [ext_resource type="PackedScene" uid="uid://crxr0gywo2ovm" path="res://Scenes/player.tscn" id="2_ar4ic"]
 [ext_resource type="PackedScene" uid="uid://dd3ds0kduwx7f" path="res://Scenes/game_over.tscn" id="5_m0t5m"]
+[ext_resource type="PackedScene" uid="uid://4dwvyi3n2omb" path="res://Scenes/pause_menu.tscn" id="6_xwga3"]
 
 [node name="WaveScene" type="Node"]
 script = ExtResource("1_m0t5m")
@@ -37,7 +38,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="GameOver" parent="." instance=ExtResource("5_m0t5m")]
-process_mode = 3
+process_mode = 2
+visible = false
+
+[node name="PauseMenu" parent="." instance=ExtResource("6_xwga3")]
+process_mode = 2
 visible = false
 
 [connection signal="timeout" from="RoundTimer" to="." method="_on_round_timer_timeout"]

@@ -8,6 +8,7 @@ extends Node
 
 #region Member Variables
 const WAVE_SCENE: PackedScene = preload("res://Scenes/wave_scene.tscn")
+const ROUND_OVER_SCENE: PackedScene = preload("res://Scenes/round_over_menu.tscn")
 var current_scene = main_menu
 #endregion
 
@@ -32,16 +33,18 @@ func return_to_main() -> void:
 	
 # Pulls up item selection screen in between rounds
 func go_to_item_selection() -> void:
-	pause_game()
-	
-	
-# Pause game
-func pause_game() -> void:
-	get_tree().paused = true
+	var round_over_scene = ROUND_OVER_SCENE.instantiate()
+	current_scene.queue_free()
+	main.add_child(round_over_scene)
+	current_scene = round_over_scene
 	
 
-# Unpause game
-func unpause_game() -> void:
-	pass
+# Starts the next round
+func go_to_next_round() -> void:
+	var wave_scene = WAVE_SCENE.instantiate()
+	# Set the wave scene properties here for now
+	current_scene.queue_free()
+	main.add_child(wave_scene)
+	current_scene = wave_scene
 	
 #endregion

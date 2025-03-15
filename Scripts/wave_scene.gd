@@ -5,6 +5,7 @@ extends Node
 @onready var round_timer_label = $RoundTimerLabel
 @onready var castle_wall = $CastleWall
 @onready var game_over_gui = $GameOver
+@onready var pause_menu = $PauseMenu
 #endregion
 
 
@@ -28,10 +29,16 @@ func set_rount_timer_wait_time(duration: int) -> void:
 #region Private
 func _ready() -> void:
 	_connect_to_wall_death_signal()
+	_connect_to_pause_signals()
 	_spawn_enemys()
 	_update_round_timer_label(str(round_duration))
 	_start_round_timer()
 
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("pause"):
+		_pause_game()
+	
 
 # Spawns enemies at random intervals between min and max frequency
 func _spawn_enemys() -> void:
@@ -61,9 +68,28 @@ func _connect_to_wall_death_signal() -> void:
 	castle_wall.connect("health_depleted", _on_wall_health_depleted)
 	
 	
+# Connect to the resume and exit signals of the pause menu
+func _connect_to_pause_signals() -> void:
+	pause_menu.connect("resume", _on_resume_clicked)
+	pause_menu.connect("exit", _on_exit_clicked)
+	
+	
 # Ends the current round and calls scene manager to pull up item selection screen
 func _end_round() -> void:
 	SceneManager.call_deferred("go_to_item_selection")
+	
+	
+# Pause game
+func _pause_game() -> void:
+	get_tree().paused = true
+	pause_menu.show()
+#endregion
+
+
+#region Public
+# Set the round timer property
+func set_round_timer(duration: int) -> void:
+	pass
 #endregion
 
 
@@ -84,4 +110,15 @@ func _on_wall_health_depleted() -> void:
 	game_over_gui.show()
 	# TODO: For each enemy in the scene, stop them and eventually create an
 	# 	animation for them to do
+	
+	
+# Handler for the resume button click event
+func _on_resume_clicked() -> void:
+	pause_menu.hide()
+	get_tree().paused = false
+	
+	
+# Handler for the exit button click event
+func _on_exit_clicked() -> void:
+	get_tree().quit()
 #endregion
