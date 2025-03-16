@@ -22,7 +22,6 @@ func end_of_lifetime() -> void:
 
 #region Event Handlers
 func _on_body_entered(body: Node2D) -> void:
-	print(body)
 	if body.has_method("take_damage"):
 		body.take_damage(damage)
 		queue_free()

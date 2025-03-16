@@ -16,7 +16,7 @@ const ENEMY: PackedScene = preload("res://Scenes/enemy.tscn")
 
 @export var max_spawn_frequency: float = 3.0
 @export var min_spawn_frequency: float = 2.5
-@export var round_duration: int = 30
+@export var round_duration: int = 15
 #endregion
 
 
@@ -42,13 +42,15 @@ func _process(delta: float) -> void:
 
 # Spawns enemies at random intervals between min and max frequency
 func _spawn_enemys() -> void:
-	while !game_over and !round_over:
+	while !game_over and !round_over and !get_tree().paused:
 		var new_enemy = ENEMY.instantiate()
-		await get_tree().create_timer(
-			randf_range(min_spawn_frequency, max_spawn_frequency)
-		).timeout
-		if (!round_over or !game_over):
+		# In case we hit the while loop and then pause/lose/win
+		if !round_over or !game_over or !get_tree().paused: 
+			await get_tree().create_timer(
+				randf_range(min_spawn_frequency, max_spawn_frequency)
+			).timeout
 			add_child(new_enemy)
+			print("Added new enemy")
 		else:
 			new_enemy.queue_free()
 			
@@ -116,6 +118,7 @@ func _on_wall_health_depleted() -> void:
 func _on_resume_clicked() -> void:
 	pause_menu.hide()
 	get_tree().paused = false
+	_spawn_enemys()
 	
 	
 # Handler for the exit button click event
