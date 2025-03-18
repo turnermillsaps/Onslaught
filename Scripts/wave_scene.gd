@@ -57,7 +57,7 @@ func _spawn_enemys() -> void:
 # Starts the round timer
 func _start_round_timer() -> void:
 	if current_round > 1:
-		round_duration += round_duration * roundi(current_round * 0.1)
+		round_duration += round_duration * (current_round * 0.1)
 		_update_round_timer_label(str(round_duration))
 	else:
 		_update_round_timer_label(str(round_duration))
