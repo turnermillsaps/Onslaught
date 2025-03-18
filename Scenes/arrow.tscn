@@ -22,4 +22,9 @@ texture = ExtResource("1_6bb5e")
 region_enabled = true
 region_rect = Rect2(31, 4, 17, 7)
 
+[node name="DestroyTimer" type="Timer" parent="."]
+wait_time = 3.0
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="timeout" from="DestroyTimer" to="." method="end_of_lifetime"]

@@ -8,6 +8,7 @@ extends CharacterBody2D
 
 #region Onready Variables
 @onready var arrow_scene = preload("res://Scenes/arrow.tscn")
+@onready var arrow_pool = $ArrowObjectPool
 #endregion
 
 
@@ -37,10 +38,8 @@ func _request_fire_projectile():
 	var mouse_dir = position.direction_to(get_global_mouse_position())
 	
 	# Spawn projectile and set position/rotation
-	var arrow = arrow_scene.instantiate()
+	var arrow = arrow_pool.spawn_arrow()
 	arrow.global_position = global_position
 	arrow.rotation = mouse_dir.angle() + deg_to_rad(90 + randf_range(-5, 5)) 
 	
-	# Add arrow instance to scene tree
-	get_tree().get_root().add_child(arrow)
 #endregion

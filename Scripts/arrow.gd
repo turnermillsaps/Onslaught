@@ -13,16 +13,22 @@ func _process(delta):
 #endregion
 
 
-#region Public
-# Used for object pooling, called when timer node times out
-func end_of_lifetime() -> void:
-	visible = false
-#endregion
-
-
 #region Event Handlers
+# Handler for the on body entered signal
 func _on_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage"):
 		body.take_damage(damage)
 		queue_free()
+	
+		
+# Handler for on visibility changed event	
+func _on_visibility_changed() -> void:
+	if visible:
+		$DestroyTimer.start.call_deferred()
+		
+		
+# Used for object pooling, called when timer node times out
+func end_of_lifetime() -> void:
+	print("End of arrow life")
+	visible = false
 #endregion

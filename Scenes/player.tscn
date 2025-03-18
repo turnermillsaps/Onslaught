@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://crxr0gywo2ovm"]
+[gd_scene load_steps=6 format=3 uid="uid://crxr0gywo2ovm"]
 
 [ext_resource type="Texture2D" uid="uid://dr6eliou0ov26" path="res://Sprites/Triangle-0002.png" id="1_2gyev"]
 [ext_resource type="Script" uid="uid://r0g5sogy3svi" path="res://Scripts/player.gd" id="1_olqph"]
+[ext_resource type="Script" uid="uid://pqojgtdekafp" path="res://Scripts/arrow_object_pool.gd" id="3_6t5aa"]
+[ext_resource type="PackedScene" uid="uid://bsygpt8aayy4i" path="res://Scenes/arrow.tscn" id="4_vgqql"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kwk70"]
 radius = 20.0
@@ -21,3 +23,8 @@ offset = Vector2(0, -8)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(7, -2)
 shape = SubResource("CapsuleShape2D_kwk70")
+
+[node name="ArrowObjectPool" type="Node" parent="."]
+script = ExtResource("3_6t5aa")
+scene_to_spawn = ExtResource("4_vgqql")
+init_amount = 50
