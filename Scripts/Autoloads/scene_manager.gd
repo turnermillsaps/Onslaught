@@ -10,6 +10,7 @@ extends Node
 const WAVE_SCENE: PackedScene = preload("res://Scenes/wave_scene.tscn")
 const ROUND_OVER_SCENE: PackedScene = preload("res://Scenes/round_over_menu.tscn")
 var current_scene = main_menu
+var current_round: int
 #endregion
 
 
@@ -20,6 +21,7 @@ func start_game() -> void:
 	main.remove_child(main_menu)
 	main.add_child(wave_scene)
 	current_scene = wave_scene
+	current_round = 1
 	
 
 # Return to main menu from pause/game over
@@ -44,6 +46,8 @@ func go_to_next_round() -> void:
 	var wave_scene = WAVE_SCENE.instantiate()
 	# Set the wave scene properties here for now
 	current_scene.queue_free()
+	current_round += 1
+	wave_scene.current_round = current_round
 	main.add_child(wave_scene)
 	current_scene = wave_scene
 	

@@ -16,7 +16,8 @@ const ENEMY: PackedScene = preload("res://Scenes/enemy.tscn")
 
 @export var max_spawn_frequency: float = 3.0
 @export var min_spawn_frequency: float = 2.5
-@export var round_duration: int = 15
+@export var round_duration: int = 30
+var current_round: int = 1
 #endregion
 
 
@@ -31,7 +32,6 @@ func _ready() -> void:
 	_connect_to_wall_death_signal()
 	_connect_to_pause_signals()
 	_spawn_enemys()
-	_update_round_timer_label(str(round_duration))
 	_start_round_timer()
 
 
@@ -45,18 +45,22 @@ func _spawn_enemys() -> void:
 	while !game_over and !round_over and !get_tree().paused:
 		var new_enemy = ENEMY.instantiate()
 		# In case we hit the while loop and then pause/lose/win
-		if !round_over or !game_over or !get_tree().paused: 
+		if !round_over and !game_over and !get_tree().paused: 
 			await get_tree().create_timer(
 				randf_range(min_spawn_frequency, max_spawn_frequency)
 			).timeout
 			add_child(new_enemy)
-			print("Added new enemy")
 		else:
 			new_enemy.queue_free()
 			
 			
 # Starts the round timer
 func _start_round_timer() -> void:
+	if current_round > 1:
+		round_duration += round_duration * (current_round * 0.1)
+		_update_round_timer_label(str(round_duration))
+	else:
+		_update_round_timer_label(str(round_duration))
 	round_timer.start()
 	
 	

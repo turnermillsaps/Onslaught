@@ -21,7 +21,6 @@ var is_attacking: bool = false
 # On ready 
 func _ready() -> void:
 	position = Vector2(randf_range(0, 1080), -200)
-	print(position)
 	hit_box.set_damage(damage)
 	
 	
